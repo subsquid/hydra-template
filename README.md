@@ -112,3 +112,4 @@ docker compose --env-file .indexer.env -f docker-compose-indexer-template.yml up
 ```
 
 Follow the links for more information about the [indexer](https://docs.subsquid.io/hydra-indexer) service and [indexer-api-gateway](https://docs.subsquid.io/hydra-indexer-gateway). 
+Follow the links for more information about the [indexer](https://docs.subsquid.io/hydra-indexer) service and [indexer-api-gateway](https://docs.subsquid.io/hydra-indexer-gateway). 
