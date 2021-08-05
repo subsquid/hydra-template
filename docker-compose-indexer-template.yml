@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
       POSTGRES_DB: indexer-db
-      
+
   indexer:
     image: subsquid/hydra-indexer:${INDEXER_VERSION}
     restart: unless-stopped
@@ -27,37 +27,46 @@ services:
       - DEBUG=index*
       - BLOCK_HEIGHT=0 # statring block height
       - WS_PROVIDER_ENDPOINT_URI=${WS_PROVIDER_ENDPOINT_URI}
-    # uncomment to enable custom type definitions 
-    #  - TYPES_JSON=types.json 
+    # uncomment to enable custom type definitions
+    #  - TYPES_JSON=types.json
     #  - SPEC_TYPES=typesBundle.json
-      
+
     #volumes:
     #   - "<path to types.json on the host machine>:/home/hydra/packages/hydra-indexer/types.json"
     #   - "<path to typesBundle.json on the host machine>:/home/hydra/packages/hydra-indexer/typesBundle.json"
-    depends_on: 
+    depends_on:
       - db
-    command: > 
-      sh -c "yarn db:bootstrap && yarn start:prod" 
-  
-  indexer-api-gateway:
+    command: >
+      sh -c "yarn db:bootstrap && yarn start:prod"
+
+
+  indexer-gateway:
     image: subsquid/hydra-indexer-gateway:${INDEXER_VERSION}
     restart: unless-stopped
-    env_file:
-      - .indexer.env
-    environment:
-      - WARTHOG_STARTER_DB_DATABASE=indexer-db
-      - WARTHOG_STARTER_DB_HOST=db 
-      - WARTHOG_STARTER_DB_PASSWORD=${DB_PASS}
-      - WARTHOG_STARTER_DB_PORT=${DB_PORT}
-      - WARTHOG_STARTER_DB_USERNAME=${DB_USER}
-      - WARTHOG_STARTER_REDIS_URI=redis://redis:6379/0 
-      - PORT=4000
-    ports:
-      - "${INDEXER_GATEWAY_PORT}:4000" # 
     depends_on:
       - redis
+      - db
+      - indexer-status-service
       - indexer
-    
+    ports:
+      - "${INDEXER_GATEWAY_PORT}:8080"
+    environment:
+      - DB_NAME=indexer-db
+      - DB_HOST=db
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_PORT=${DB_PORT}
+      - HYDRA_INDEXER_STATUS_SERVICE=http://indexer-status-service:8081/status
+
+  indexer-status-service:
+    image: subsquid/hydra-indexer-status-service:${INDEXER_VERSION}
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      REDIS_URI: redis://redis:6379/0
+      PORT: 8081
+
   redis:
     image: redis:6.0-alpine
     restart: always
