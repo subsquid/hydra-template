@@ -11,4 +11,5 @@ type HistoricalBalance @entity {
   account: Account!
   balance: BigInt!
   timestamp: BigInt!
+  era: String!
 }

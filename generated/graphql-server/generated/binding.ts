@@ -66,18 +66,16 @@ export type HistoricalBalanceOrderByInput =   'createdAt_ASC' |
   'balance_ASC' |
   'balance_DESC' |
   'timestamp_ASC' |
-  'timestamp_DESC' |
-  'era_ASC' |
-  'era_DESC'
+  'timestamp_DESC'
 
 export interface AccountCreateInput {
   wallet: String
-  balance: String
+  balance: BigInt
 }
 
 export interface AccountUpdateInput {
   wallet?: String | null
-  balance?: String | null
+  balance?: BigInt | null
 }
 
 export interface AccountWhereInput {
@@ -153,16 +151,14 @@ export interface BaseWhereInput {
 
 export interface HistoricalBalanceCreateInput {
   account: ID_Output
-  balance: String
-  timestamp: String
-  era: String
+  balance: BigInt
+  timestamp: BigInt
 }
 
 export interface HistoricalBalanceUpdateInput {
   account?: ID_Input | null
-  balance?: String | null
-  timestamp?: String | null
-  era?: String | null
+  balance?: BigInt | null
+  timestamp?: BigInt | null
 }
 
 export interface HistoricalBalanceWhereInput {
@@ -204,11 +200,6 @@ export interface HistoricalBalanceWhereInput {
   timestamp_lt?: BigInt | null
   timestamp_lte?: BigInt | null
   timestamp_in?: BigInt[] | BigInt | null
-  era_eq?: String | null
-  era_contains?: String | null
-  era_startsWith?: String | null
-  era_endsWith?: String | null
-  era_in?: String[] | String | null
   account?: AccountWhereInput | null
   AND?: HistoricalBalanceWhereInput[] | HistoricalBalanceWhereInput | null
   OR?: HistoricalBalanceWhereInput[] | HistoricalBalanceWhereInput | null
@@ -293,7 +284,6 @@ export interface HistoricalBalance extends BaseGraphQLObject {
   accountId: String
   balance: BigInt
   timestamp: BigInt
-  era: String
 }
 
 export interface HistoricalBalanceConnection {

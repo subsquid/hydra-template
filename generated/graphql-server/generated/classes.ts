@@ -24,9 +24,9 @@ const { GraphQLJSONObject } = require('graphql-type-json');
 import { BaseWhereInput, JsonObject, PaginationArgs, DateOnlyString, DateTimeString, BigInt, Bytes } from 'warthog';
 
 // @ts-ignore
-import { HistoricalBalance } from "../modules/historical-balance/historical-balance.model";
+import { HistoricalBalance } from "../src/modules/historical-balance/historical-balance.model";
 // @ts-ignore
-import { Account } from "../modules/account/account.model";
+import { Account } from "../src/modules/account/account.model";
 
 export enum HistoricalBalanceOrderByEnum {
   createdAt_ASC = "createdAt_ASC",
@@ -45,10 +45,7 @@ export enum HistoricalBalanceOrderByEnum {
   balance_DESC = "balance_DESC",
 
   timestamp_ASC = "timestamp_ASC",
-  timestamp_DESC = "timestamp_DESC",
-
-  era_ASC = "era_ASC",
-  era_DESC = "era_DESC"
+  timestamp_DESC = "timestamp_DESC"
 }
 
 registerEnumType(HistoricalBalanceOrderByEnum, {
@@ -136,55 +133,40 @@ export class HistoricalBalanceWhereInput {
   account_in?: string[];
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_eq?: string;
+  balance_eq?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_gt?: string;
+  balance_gt?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_gte?: string;
+  balance_gte?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_lt?: string;
+  balance_lt?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_lte?: string;
+  balance_lte?: BN;
 
   @TypeGraphQLField(() => [BigInt], { nullable: true })
-  balance_in?: string[];
+  balance_in?: BN[];
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_eq?: string;
+  timestamp_eq?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_gt?: string;
+  timestamp_gt?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_gte?: string;
+  timestamp_gte?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_lt?: string;
+  timestamp_lt?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_lte?: string;
+  timestamp_lte?: BN;
 
   @TypeGraphQLField(() => [BigInt], { nullable: true })
-  timestamp_in?: string[];
-
-  @TypeGraphQLField({ nullable: true })
-  era_eq?: string;
-
-  @TypeGraphQLField({ nullable: true })
-  era_contains?: string;
-
-  @TypeGraphQLField({ nullable: true })
-  era_startsWith?: string;
-
-  @TypeGraphQLField({ nullable: true })
-  era_endsWith?: string;
-
-  @TypeGraphQLField(() => [String], { nullable: true })
-  era_in?: string[];
+  timestamp_in?: BN[];
 
   @TypeGraphQLField(() => AccountWhereInput, { nullable: true })
   account?: AccountWhereInput;
@@ -207,14 +189,11 @@ export class HistoricalBalanceCreateInput {
   @TypeGraphQLField(() => ID)
   account!: string;
 
-  @TypeGraphQLField()
-  balance!: string;
+  @TypeGraphQLField(() => BigInt)
+  balance!: BN;
 
-  @TypeGraphQLField()
-  timestamp!: string;
-
-  @TypeGraphQLField()
-  era!: string;
+  @TypeGraphQLField(() => BigInt)
+  timestamp!: BN;
 }
 
 @TypeGraphQLInputType()
@@ -222,14 +201,11 @@ export class HistoricalBalanceUpdateInput {
   @TypeGraphQLField(() => ID, { nullable: true })
   account?: string;
 
-  @TypeGraphQLField({ nullable: true })
-  balance?: string;
+  @TypeGraphQLField(() => BigInt, { nullable: true })
+  balance?: BN;
 
-  @TypeGraphQLField({ nullable: true })
-  timestamp?: string;
-
-  @TypeGraphQLField({ nullable: true })
-  era?: string;
+  @TypeGraphQLField(() => BigInt, { nullable: true })
+  timestamp?: BN;
 }
 
 @ArgsType()
@@ -364,22 +340,22 @@ export class AccountWhereInput {
   wallet_in?: string[];
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_eq?: string;
+  balance_eq?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_gt?: string;
+  balance_gt?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_gte?: string;
+  balance_gte?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_lt?: string;
+  balance_lt?: BN;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_lte?: string;
+  balance_lte?: BN;
 
   @TypeGraphQLField(() => [BigInt], { nullable: true })
-  balance_in?: string[];
+  balance_in?: BN[];
 
   @TypeGraphQLField(() => HistoricalBalanceWhereInput, { nullable: true })
   historicalBalances_none?: HistoricalBalanceWhereInput;
@@ -408,8 +384,8 @@ export class AccountCreateInput {
   @TypeGraphQLField()
   wallet!: string;
 
-  @TypeGraphQLField()
-  balance!: string;
+  @TypeGraphQLField(() => BigInt)
+  balance!: BN;
 }
 
 @TypeGraphQLInputType()
@@ -417,8 +393,8 @@ export class AccountUpdateInput {
   @TypeGraphQLField({ nullable: true })
   wallet?: string;
 
-  @TypeGraphQLField({ nullable: true })
-  balance?: string;
+  @TypeGraphQLField(() => BigInt, { nullable: true })
+  balance?: BN;
 }
 
 @ArgsType()

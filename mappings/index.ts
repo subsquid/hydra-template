@@ -10,7 +10,6 @@ export async function balancesTransfer({
   block,
   extrinsic,
 }: EventContext & StoreContext): Promise<void> {
-
   const [from, to, value] = new Balances.TransferEvent(event).params
   const tip = extrinsic ? new BN(extrinsic.tip.toString(10)) : new BN(0)
 
@@ -31,12 +30,14 @@ export async function balancesTransfer({
   hbFrom.account = fromAcc;
   hbFrom.balance = fromAcc.balance;
   hbFrom.timestamp = new BN(block.timestamp)
+  hbFrom.era = JSON.stringify(extrinsic?.era) || 'no era'
   await store.save(hbFrom)
 
   const hbTo = new HistoricalBalance()
   hbTo.account = toAcc;
   hbTo.balance = toAcc.balance;
   hbTo.timestamp = new BN(block.timestamp)
+  hbTo.era = JSON.stringify(extrinsic?.era) || 'no era'
   await store.save(hbTo)
 }
 

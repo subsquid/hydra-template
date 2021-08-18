@@ -1,10 +1,8 @@
-import { BaseModel, NumericField, Model, ManyToOne, StringField, JSONField } from 'warthog';
+import { BaseModel, NumericField, Model, ManyToOne, StringField } from 'warthog';
 
 import BN from 'bn.js';
 
 import { Account } from '../account/account.model';
-
-import * as jsonTypes from '../jsonfields/jsonfields.model';
 
 @Model({ api: {} })
 export class HistoricalBalance extends BaseModel {
@@ -38,9 +36,6 @@ export class HistoricalBalance extends BaseModel {
     }
   })
   timestamp!: BN;
-
-  @StringField({})
-  era!: string;
 
   constructor(init?: Partial<HistoricalBalance>) {
     super();

@@ -20,7 +20,7 @@ type AccountConnection {
 
 input AccountCreateInput {
   wallet: String!
-  balance: String!
+  balance: BigInt!
 }
 
 type AccountEdge {
@@ -43,7 +43,7 @@ enum AccountOrderByInput {
 
 input AccountUpdateInput {
   wallet: String
-  balance: String
+  balance: BigInt
 }
 
 input AccountWhereInput {
@@ -175,7 +175,6 @@ type HistoricalBalance implements BaseGraphQLObject {
   accountId: String!
   balance: BigInt!
   timestamp: BigInt!
-  era: String!
 }
 
 type HistoricalBalanceConnection {
@@ -186,9 +185,8 @@ type HistoricalBalanceConnection {
 
 input HistoricalBalanceCreateInput {
   account: ID!
-  balance: String!
-  timestamp: String!
-  era: String!
+  balance: BigInt!
+  timestamp: BigInt!
 }
 
 type HistoricalBalanceEdge {
@@ -209,15 +207,12 @@ enum HistoricalBalanceOrderByInput {
   balance_DESC
   timestamp_ASC
   timestamp_DESC
-  era_ASC
-  era_DESC
 }
 
 input HistoricalBalanceUpdateInput {
   account: ID
-  balance: String
-  timestamp: String
-  era: String
+  balance: BigInt
+  timestamp: BigInt
 }
 
 input HistoricalBalanceWhereInput {
@@ -259,11 +254,6 @@ input HistoricalBalanceWhereInput {
   timestamp_lt: BigInt
   timestamp_lte: BigInt
   timestamp_in: [BigInt!]
-  era_eq: String
-  era_contains: String
-  era_startsWith: String
-  era_endsWith: String
-  era_in: [String!]
   account: AccountWhereInput
   AND: [HistoricalBalanceWhereInput!]
   OR: [HistoricalBalanceWhereInput!]
