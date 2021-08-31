@@ -21,7 +21,7 @@ import * as BN from "bn.js";
 const { GraphQLJSONObject } = require('graphql-type-json');
 // prettier-ignore
 // @ts-ignore
-import { BaseWhereInput, JsonObject, PaginationArgs, DateOnlyString, DateTimeString, BigInt, Bytes } from 'warthog';
+import { BaseWhereInput, JsonObject, PaginationArgs, DateOnlyString, DateTimeString, BigInt, Bytes } from '@subsquid/warthog';
 
 // @ts-ignore
 import { HistoricalBalance } from "../modules/historical-balance/historical-balance.model";
@@ -45,11 +45,11 @@ export enum HistoricalBalanceOrderByEnum {
   balance_DESC = "balance_DESC",
 
   timestamp_ASC = "timestamp_ASC",
-  timestamp_DESC = "timestamp_DESC"
+  timestamp_DESC = "timestamp_DESC",
 }
 
 registerEnumType(HistoricalBalanceOrderByEnum, {
-  name: "HistoricalBalanceOrderByInput"
+  name: "HistoricalBalanceOrderByInput",
 });
 
 @TypeGraphQLInputType()
@@ -125,12 +125,6 @@ export class HistoricalBalanceWhereInput {
 
   @TypeGraphQLField(() => [ID], { nullable: true })
   deletedById_in?: string[];
-
-  @TypeGraphQLField(() => ID, { nullable: true })
-  account_eq?: string;
-
-  @TypeGraphQLField(() => [ID], { nullable: true })
-  account_in?: string[];
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
   balance_eq?: string;
@@ -243,11 +237,11 @@ export enum AccountOrderByEnum {
   wallet_DESC = "wallet_DESC",
 
   balance_ASC = "balance_ASC",
-  balance_DESC = "balance_DESC"
+  balance_DESC = "balance_DESC",
 }
 
 registerEnumType(AccountOrderByEnum, {
-  name: "AccountOrderByInput"
+  name: "AccountOrderByInput",
 });
 
 @TypeGraphQLInputType()

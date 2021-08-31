@@ -11,7 +11,8 @@ export interface Query {
     accountsConnection: <T = AccountConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: AccountWhereInput | null, orderBy?: Array<AccountOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     historicalBalances: <T = Array<HistoricalBalance>>(args: { offset?: Int | null, limit?: Int | null, where?: HistoricalBalanceWhereInput | null, orderBy?: Array<HistoricalBalanceOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     historicalBalanceByUniqueInput: <T = HistoricalBalance | null>(args: { where: HistoricalBalanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    historicalBalancesConnection: <T = HistoricalBalanceConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: HistoricalBalanceWhereInput | null, orderBy?: Array<HistoricalBalanceOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    historicalBalancesConnection: <T = HistoricalBalanceConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: HistoricalBalanceWhereInput | null, orderBy?: Array<HistoricalBalanceOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    hello: <T = Hello>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {}
@@ -186,8 +187,6 @@ export interface HistoricalBalanceWhereInput {
   deletedAt_gte?: DateTime | null
   deletedById_eq?: ID_Input | null
   deletedById_in?: ID_Output[] | ID_Output | null
-  account_eq?: ID_Input | null
-  account_in?: ID_Output[] | ID_Output | null
   balance_eq?: BigInt | null
   balance_gt?: BigInt | null
   balance_gte?: BigInt | null
@@ -269,6 +268,10 @@ export interface BaseModelUUID extends BaseGraphQLObject {
   deletedAt?: DateTime | null
   deletedById?: String | null
   version: Int
+}
+
+export interface Hello {
+  greeting: String
 }
 
 export interface HistoricalBalance extends BaseGraphQLObject {

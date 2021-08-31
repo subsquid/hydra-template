@@ -7,11 +7,14 @@ ADD tsconfig.json .
 ADD db db
 ADD generated generated
 ADD mappings mappings
-ADD types types
+ADD chain chain
+ADD server-extension server-extension
+RUN npx tsc
 ADD manifest.yml .
 ADD .env .
+ENV HYDRA_NO_TS=true
 CMD [ "npm", "run", "processor:start"]
 
 
 FROM processor AS query-node
-CMD ["npm", "run", "query-node:start"]
+CMD ["node", "./generated/server/index.js"]

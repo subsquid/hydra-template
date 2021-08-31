@@ -162,6 +162,10 @@ interface DeleteResponse {
   id: ID!
 }
 
+type Hello {
+  greeting: String!
+}
+
 type HistoricalBalance implements BaseGraphQLObject {
   id: ID!
   createdAt: DateTime!
@@ -240,8 +244,6 @@ input HistoricalBalanceWhereInput {
   deletedAt_gte: DateTime
   deletedById_eq: ID
   deletedById_in: [ID!]
-  account_eq: ID
-  account_in: [ID!]
   balance_eq: BigInt
   balance_gt: BigInt
   balance_gte: BigInt
@@ -284,6 +286,7 @@ type Query {
   historicalBalances(offset: Int, limit: Int = 50, where: HistoricalBalanceWhereInput, orderBy: [HistoricalBalanceOrderByInput!]): [HistoricalBalance!]!
   historicalBalanceByUniqueInput(where: HistoricalBalanceWhereUniqueInput!): HistoricalBalance
   historicalBalancesConnection(first: Int, after: String, last: Int, before: String, where: HistoricalBalanceWhereInput, orderBy: [HistoricalBalanceOrderByInput!]): HistoricalBalanceConnection!
+  hello: Hello!
 }
 
 type StandardDeleteResponse {
