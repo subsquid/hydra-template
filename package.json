@@ -19,8 +19,8 @@
     "query-node:start": "ts-node --type-check ./generated/server/index.ts"
   },
   "dependencies": {
-    "@subsquid/hydra-cli": "4.2.0-alpha.8",
-    "@subsquid/hydra-processor": "4.2.0-alpha.8",
-    "@subsquid/hydra-typegen": "4.2.0-alpha.8"
+    "@subsquid/hydra-cli": "5.0.0-alpha.16",
+    "@subsquid/hydra-processor": "5.0.0-alpha.16",
+    "@subsquid/hydra-typegen": "5.0.0-alpha.16"
   }
 }
